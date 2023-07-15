@@ -1,0 +1,106 @@
+
+let readlineSync=require("readline-sync");
+let kuler=require("kuler");
+let score=0;
+/*Taking the name of the user from the user End.*/
+let userName=readlineSync.question("What's your Name?");
+console.log(kuler(`${userName} Welcome to Quizify Game!!`,"#f97316"));
+
+console.log("Plese Select any Options by typing either (a/b/c/d)👍👍👍")
+/*Creating DataBase Borad*/
+const dataBase={
+    data: [
+    {
+      Question:`Let a={} , b={}
+console.log(a==b)
+console.log(a===b)`,
+      Options:{
+        a:"false false",
+        b:"false true",
+        c:"true false",
+        d:"true true"
+      },
+      CorrectAnswer:"a"
+    },
+    {
+      Question: `Object.assign(target,source) creates which type of 
+      copy?`,
+       Options:{
+         a:"Deep copy",
+         b:"Shallow copy",
+         c:"Nested copy",
+         d:"Creates a new reference"
+       },
+       CorrectAnswer:"b"
+    },
+    {
+      Question:"Is method chaining possible with forEach?",
+      Options:{
+        a:"Yes",
+        b:"No"
+      },
+      CorrectAnswer:"b"
+    }
+  
+  ]
+}
+/*Creating Leader Board*/
+const leaderBoard={
+  data:[
+    {
+      name:"Gautam",
+      score:2
+    },
+    {
+      name:"Rahul",
+      score:1
+    },
+    {
+      name:"Rajesh",
+      score:2
+    }
+    
+  ]
+}
+function playGame(userAnswer,correctAnswer){
+        if(userAnswer===correctAnswer){
+        console.log(kuler("Correct!!!😊😊😊","#22c55e"));
+          score++;
+      }
+      else{
+        console.log(kuler("Wrong Answer!!!😢😢😢","#dc2626"
+));
+        console.log(kuler(`Correct Answer is-${correctAnswer}`,"#22c55e"));
+      }
+}
+function showLeaderBoard(){
+  console.log("\nPlease Check your Position on leaderBorad");
+  leaderBoard.data.push({
+    name:userName,
+    score:score
+  });
+  let leaderPosition=leaderBoard.data.sort((a,b)=>{
+    return b.score-a.score;
+  })
+  if(leaderPosition[0].name===userName){
+    console.log("Congratulation!! You are the new leader of theis Game✌✌✌😎");
+  };
+  for(let leader of leaderPosition){
+    console.log(kuler(`${leader.name}--->${leader.score}`,"#d946ef"));
+  }
+}
+function showQuestionAndAnswer(){
+  for(let i=0;i<dataBase.data.length;i++)
+    {
+      console.log(`\nQ${i+1}->${dataBase.data[i].Question}\n`);
+      for(let key in dataBase.data[i].Options){
+        console.log(`${key}-${dataBase.data[i].Options[key]}`);
+      }
+      userAnswer=readlineSync.question("Enter your Answer-(a/b/c/d)-");
+    playGame(userAnswer.toLowerCase(),dataBase.data[i].CorrectAnswer);
+    } 
+}
+showQuestionAndAnswer();
+console.log(kuler(`\nCongratulation!!! You have scored->${score}😍😍😍`,"#fbbf24"));
+
+showLeaderBoard();
